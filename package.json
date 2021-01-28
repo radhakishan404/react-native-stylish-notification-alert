@@ -1,4 +1,8 @@
 {
+  "name": "react-native-expo-animation-notification",
+  "version": "1.0.1",
+  "description": "Simple React Native Expo Animation Notification Package created by Radhakishan Jangid",
+  "main": "App.js",
   "dependencies": {
     "expo": "~39.0.0",
     "react": "~16.13.0",
