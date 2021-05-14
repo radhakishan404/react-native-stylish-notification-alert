@@ -1,80 +1,76 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { AntDesign } from "@expo/vector-icons";
-import { StyleSheet, View, TouchableOpacity, Animated, Text } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Animated } from "react-native";
 
 export default function Notification(props) {
-    const animatedValue = React.useRef(new Animated.Value(0)).current;
 
-    Animated.timing(animatedValue, {
-        toValue: 0,
-        duration: 2000,
-        useNativeDriver: false
-    }).start();
+    const animatedValue = React.useRef(new Animated.Value(0)).current;
 
     if (props.isActive) {
         Animated.timing(animatedValue, {
             toValue: 1,
-            duration: 2000,
+            duration: props.duration,
             useNativeDriver: false
-        }).start();
+        }).start(() => {
+            setTimeout(() => {
+                props.onClose();
+            }, props.autoHide);
+        });
     }
 
     if (!props.isActive) {
         Animated.timing(animatedValue, {
             toValue: 0,
-            duration: 2000,
+            duration: props.duration,
             useNativeDriver: false
         }).start();
     }
 
     const close = () => {
-        Animated.timing(animatedValue, {
-            toValue: 0,
-            duration: 2000,
-            useNativeDriver: false
-        }).start();
+        props.onClose();
     }
 
     return (
         <View style={styles.container}>
-            <Animated.View style={[styles.notification, {
-                transform: [
+            <Animated.View
+                style={[
+                    styles.notification,
                     {
-                        translateX: animatedValue.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [-1000, 0]
-                        })
-                    },
-                    { perspective: 1000 }
-                ]
-            }, { backgroundColor: props.backgroundColor }]}>
-                <Text style={styles.title}>{props.message ? props.message : "Enter your message"}</Text>
-                <TouchableOpacity style={styles.delete} onPress={() => close()}>
-                    <AntDesign name="close" size={16} color="white" style={styles.icon} />
+                        transform: [
+                            {
+                                translateX: animatedValue.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [350, 0]
+                                })
+                            },
+                            { perspective: 1000 }
+                        ],
+                        backgroundColor: "#"+props.color
+                    }
+                ]}
+            >
+                <Text style={styles.notificationTitle}>{props.notificationTitle}</Text>
+                <TouchableOpacity onPress={() => close()}>
+                    <AntDesign name="close" size={14} color="white" style={styles.icon} />
                 </TouchableOpacity>
             </Animated.View>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
         position: "absolute",
-        bottom: 10,
-        width: "100%",
+        top: 50,
+        right: 10
     },
     notification: {
-        paddingTop: 3.5,
-        paddingBottom: 3.5,
-        paddingLeft: 3.5,
-        paddingRight: 4.5,
         backgroundColor: "#23d160",
-        width: "100%",
-        height: "auto",
-        borderRadius: 5
+        borderRadius: 5,
+        padding: 4,
+        flexDirection: "row",
     },
-    title: {
+    notificationTitle: {
         color: "#fff",
         padding: 10,
         textAlign: "left",
@@ -82,14 +78,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold"
     },
-    delete: {
-        position: "absolute",
-        top: 5,
-        right: 5
-    },
     icon: {
         backgroundColor: "rgba(10,10,10,.2)",
         borderRadius: 50,
         padding: 3
     }
-});
+})

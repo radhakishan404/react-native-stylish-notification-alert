@@ -5,14 +5,35 @@
   "main": "App.js",
   "dependencies": {
     "expo": "~39.0.0",
-    "react": "~16.13.0",
-    "react-dom": "~16.13.0",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz",
     "react-native-web": "0.13.13"
   },
   "devDependencies": {
     "@babel/core": "7.9.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radhakishan404/react-native-stylish-notification-alert"
+  },
+  "keywords": [
+    "javascript",
+    "react",
+    "react-native",
+    "alerts",
+    "notification",
+    "animation",
+    "dialogs",
+    "modals",
+    "message-alert"
+  ],
+  "author": "Radhakishan jangid <radhakishanjangid404@gmail.com> (https://radhakishan.vpran.in)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/radhakishan404/react-native-stylish-notification-alert/issues"
+  },
+  "homepage": "https://github.com/radhakishan404/react-native-stylish-notification-alert#readme",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -20,5 +41,5 @@
     "web": "expo web",
     "eject": "expo eject"
   },
-  "private": true
+  "private": false
 }
